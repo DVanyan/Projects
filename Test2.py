@@ -1,12 +1,18 @@
 import requests
 import json
-import os
 from pathlib import Path
 
-# Define the API endpoint
-url = "https://api.cloudflare.com/client/v4/zones"
+# Define the path to the configuration file
+config_file_path = Path("/home/david/output.json")
 
-# Define the headers
+# Read the zone ID from the configuration file
+with config_file_path.open('r') as file:
+    zone_id = file.read().strip()
+
+# Define the API endpoint for Cloudflare lists
+url = f"https://api.cloudflare.com/client/v4/zones/{zone_id}/rules/lists"
+
+# Define the headers with secure token handling
 headers = {
     "Authorization": "Bearer eXnsJS-v5FvKgoR4rYpOtz7mEAMVmmZ6XYCcG3sP",
     "Content-Type": "application/json"
